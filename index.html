@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting to Survey...</title>
+    <!-- Meta refresh redirect as fallback -->
+    <meta http-equiv="refresh" content="0; url=survey/index.html" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 50px;
+        background-color: #f5f5f5;
+      }
+      .loading {
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading">
+      <h2>Redirecting to Survey...</h2>
+      <p>
+        If you are not automatically redirected,
+        <a href="survey/index.html">click here</a>.
+      </p>
+    </div>
+
+    <script>
+      // JavaScript redirect (faster than meta refresh)
+      window.location.href = "survey/index.html";
+    </script>
+  </body>
+</html>
