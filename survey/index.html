@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Swarveda Chandas Identifier Survey</title>
+	<style>
+		body {
+			font-family: 'Segoe UI', Arial, sans-serif;
+			background: linear-gradient(135deg, #e0e7ff 0%, #f4f6fb 100%);
+			margin: 0;
+			padding: 0;
+			min-height: 100vh;
+			overflow-x: hidden;
+		}
+		.container {
+			max-width: 600px;
+			margin: 40px auto;
+			background: rgba(255,255,255,0.98);
+			border-radius: 18px;
+			box-shadow: 0 8px 32px rgba(44,62,80,0.13), 0 1.5px 8px rgba(44,62,80,0.08);
+			padding: 36px 30px 28px 30px;
+			animation: fadeInUp 1.1s cubic-bezier(.23,1.01,.32,1) 0.1s both;
+		}
+		@keyframes fadeInUp {
+			from { opacity: 0; transform: translateY(40px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+		h1 {
+			text-align: center;
+			color: #2a3a5c;
+			margin-bottom: 22px;
+			font-size: 2.1em;
+			letter-spacing: 1px;
+			font-weight: 700;
+			background: linear-gradient(90deg, #5f72bd 0%, #9a5be4 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+		}
+		.question {
+			margin-bottom: 28px;
+			position: relative;
+			animation: fadeIn 0.7s cubic-bezier(.23,1.01,.32,1);
+			border-radius: 10px;
+			background: linear-gradient(90deg, #f7f8fa 80%, #e0e7ff 100%);
+			box-shadow: 0 1.5px 8px rgba(44,62,80,0.04);
+			padding: 18px 14px 10px 14px;
+			transition: box-shadow 0.2s;
+		}
+		.question:focus-within, .question:hover {
+			box-shadow: 0 4px 18px rgba(44,62,80,0.13);
+		}
+		@keyframes fadeIn {
+			from { opacity: 0; transform: translateY(20px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+		.question label {
+			font-weight: 600;
+			color: #2a3a5c;
+			display: block;
+			margin-bottom: 10px;
+			font-size: 1.08em;
+			letter-spacing: 0.2px;
+		}
+		.options {
+			margin-left: 0;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px 18px;
+		}
+		.options input[type="radio"], .options input[type="checkbox"] {
+			accent-color: #7b5be4;
+			transform: scale(1.18);
+			transition: box-shadow 0.2s, outline 0.2s;
+			box-shadow: 0 0 0 0 rgba(123,91,228,0.2);
+			outline: none;
+		}
+		.options input[type="radio"]:focus, .options input[type="checkbox"]:focus {
+			box-shadow: 0 0 0 3px #b3a6e6;
+		}
+		.options label {
+			margin-right: 0;
+			font-weight: 500;
+			color: #3a3a5c;
+			background: #f2f3fa;
+			border-radius: 6px;
+			padding: 7px 14px 7px 8px;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+			box-shadow: 0 0.5px 2px rgba(44,62,80,0.04);
+			position: relative;
+		}
+		.options label:hover, .options input[type="radio"]:checked + label, .options input[type="checkbox"]:checked + label {
+			background: #e0e7ff;
+			color: #7b5be4;
+		}
+		.submit-btn {
+			display: block;
+			width: 100%;
+			background: linear-gradient(90deg, #7b5be4 0%, #5f72bd 100%);
+			color: #fff;
+			border: none;
+			border-radius: 7px;
+			padding: 14px;
+			font-size: 1.15em;
+			font-weight: 700;
+			cursor: pointer;
+			margin-top: 18px;
+			box-shadow: 0 2px 8px rgba(123,91,228,0.08);
+			letter-spacing: 0.5px;
+			transition: background 0.22s, transform 0.18s, box-shadow 0.18s;
+			animation: pulseBtn 1.2s infinite alternate;
+		}
+		.submit-btn:hover, .submit-btn:focus {
+			background: linear-gradient(90deg, #5f72bd 0%, #7b5be4 100%);
+			transform: translateY(-2px) scale(1.03);
+			box-shadow: 0 6px 18px rgba(123,91,228,0.13);
+		}
+		@keyframes pulseBtn {
+			from { box-shadow: 0 2px 8px rgba(123,91,228,0.08); }
+			to { box-shadow: 0 6px 18px rgba(123,91,228,0.18); }
+		}
+		.success-message {
+			display: none;
+			text-align: center;
+			color: #2a8a4a;
+			font-size: 1.3em;
+			margin-top: 36px;
+			animation: fadeInScale 0.7s cubic-bezier(.23,1.01,.32,1);
+		}
+		.thank-you {
+			display: none;
+			text-align: center;
+			color: #2a3a5c;
+			font-size: 1.13em;
+			margin-top: 16px;
+			animation: fadeInScale 0.7s cubic-bezier(.23,1.01,.32,1);
+		}
+		@keyframes fadeInScale {
+			from { opacity: 0; transform: scale(0.92); }
+			to { opacity: 1; transform: scale(1); }
+		}
+		/* Floating label effect for radio/checkbox groups */
+		.question label:first-child {
+			position: relative;
+			padding-left: 0;
+			animation: floatLabel 0.7s cubic-bezier(.23,1.01,.32,1);
+		}
+		@keyframes floatLabel {
+			from { opacity: 0; transform: translateY(10px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+		/* Responsive design */
+		@media (max-width: 700px) {
+			.container { padding: 10vw 2vw 6vw 2vw; margin: 0.5em; }
+			h1 { font-size: 1.3em; }
+			.question { padding: 10px 4px 6px 4px; }
+			.submit-btn { font-size: 1em; padding: 12px; }
+		}
+		@media (max-width: 480px) {
+			.container { padding: 2vw 1vw 2vw 1vw; }
+			.question { font-size: 0.98em; }
+			.options label { font-size: 0.97em; padding: 6px 8px 6px 6px; }
+		}
+		/* Animated checkmark for checked radio/checkbox */
+		.options input[type="radio"], .options input[type="checkbox"] {
+			position: relative;
+		}
+		.options input[type="radio"]:checked:after, .options input[type="checkbox"]:checked:after {
+			content: '';
+			display: block;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 18px;
+			height: 18px;
+			background: rgba(123,91,228,0.13);
+			border-radius: 50%;
+			transform: translate(-50%,-50%) scale(1.2);
+			animation: popCheck 0.3s cubic-bezier(.23,1.01,.32,1);
+			z-index: 1;
+		}
+		@keyframes popCheck {
+			from { transform: translate(-50%,-50%) scale(0.7); opacity: 0; }
+			to { transform: translate(-50%,-50%) scale(1.2); opacity: 1; }
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Swarveda Chandas Identifier Survey</h1>
+		<form id="surveyForm">
+			<div class="question">
+				<label>1. What is your age group?</label>
+				<div class="options">
+					<label><input type="radio" name="ageGroup" value="18-24" required>18-24</label>
+					<label><input type="radio" name="ageGroup" value="25-34">25-34</label>
+					<label><input type="radio" name="ageGroup" value="35-44">35-44</label>
+					<label><input type="radio" name="ageGroup" value="45-54">45-54</label>
+					<label><input type="radio" name="ageGroup" value="55+">55+</label>
+				</div>
+			</div>
+			<div class="question">
+				<label>2. What is your primary occupation?</label>
+				<div class="options">
+					<label><input type="radio" name="occupation" value="Student" required>Student</label>
+					<label><input type="radio" name="occupation" value="Teacher/Educator">Teacher/Educator</label>
+					<label><input type="radio" name="occupation" value="Professional">Professional</label>
+					<label><input type="radio" name="occupation" value="Sanskrit Scholar">Sanskrit Scholar</label>
+					<label><input type="radio" name="occupation" value="Other">Other</label>
+				</div>
+			</div>
+			<div class="question">
+				<label>3. What is your experience level with Sanskrit?</label>
+				<div class="options">
+					<label><input type="radio" name="sanskritExp" value="None" required>None</label>
+					<label><input type="radio" name="sanskritExp" value="Beginner">Beginner</label>
+					<label><input type="radio" name="sanskritExp" value="Intermediate">Intermediate</label>
+					<label><input type="radio" name="sanskritExp" value="Advanced">Advanced</label>
+				</div>
+			</div>
+			<div class="question">
+				<label>4. Do you have any disabilities that might affect learning or using digital tools?</label>
+				<div class="options">
+					<label><input type="radio" name="disability" value="None" required>None</label>
+					<label><input type="radio" name="disability" value="Visually Impaired">Visually Impaired</label>
+					<label><input type="radio" name="disability" value="Hearing Impaired">Hearing Impaired</label>
+					<label><input type="radio" name="disability" value="Physically Challenged">Physically Challenged</label>
+					<label><input type="radio" name="disability" value="Other">Other</label>
+				</div>
+			</div>
+			<div class="question">
+				<label>5. Are you aware of Chandas (meter) in Sanskrit poetry?</label>
+				<div class="options">
+					<label><input type="radio" name="awareChandas" value="Yes" required>Yes</label>
+					<label><input type="radio" name="awareChandas" value="No">No</label>
+				</div>
+			</div>
+			<div class="question">
+				<label>6. On a scale of 1-5, how interested are you in learning or practicing Chandas?</label>
+				<div class="options">
+					<label><input type="radio" name="interestChandas" value="1" required>1 (Not interested at all)</label>
+					<label><input type="radio" name="interestChandas" value="2">2</label>
+					<label><input type="radio" name="interestChandas" value="3">3</label>
+					<label><input type="radio" name="interestChandas" value="4">4</label>
+					<label><input type="radio" name="interestChandas" value="5">5 (Very interested)</label>
+				</div>
+			</div>
+			<div class="question">
+				<label>7. What is your main challenge when trying to identify Chandas in Sanskrit shlokas?</label>
+				<div class="options">
+					<label><input type="radio" name="mainChallenge" value="Identifying Laghu/Guru syllables" required>Identifying Laghu/Guru syllables</label>
+					<label><input type="radio" name="mainChallenge" value="Lack of user-friendly tools">Lack of user-friendly tools</label>
+					<label><input type="radio" name="mainChallenge" value="Accessibility issues">Accessibility issues (e.g., for visually/hearing impaired)</label>
+					<label><input type="radio" name="mainChallenge" value="Too time-consuming">It's too time-consuming</label>
+					<label><input type="radio" name="mainChallenge" value="No challenges">No challenges</label>
+				</div>
+			</div>
+			<div class="question">
+				<label>8. Which features would you most want in a Chandas identifier tool like Swarveda? <span style="font-weight:400; color:#555;">(Select all that apply)</span></label>
+				<div class="options">
+					<label><input type="checkbox" name="features" value="Text input">Text input</label>
+					<label><input type="checkbox" name="features" value="Voice input">Voice input</label>
+					<label><input type="checkbox" name="features" value="File upload">File upload</label>
+					<label><input type="checkbox" name="features" value="Accessibility for blind users">Accessibility for blind users (voice/audio feedback)</label>
+					<label><input type="checkbox" name="features" value="Accessibility for deaf users">Accessibility for deaf users (visual rhythm/color codes)</label>
+					<label><input type="checkbox" name="features" value="Learning hub">Built-in learning hub (library/examples)</label>
+					<label><input type="checkbox" name="features" value="Practice quizzes">Practice quizzes</label>
+					<label><input type="checkbox" name="features" value="Export options">Export options (for sharing/academic use)</label>
+				</div>
+			</div>
+			<div class="question">
+				<label>9. On a scale of 1-5, how likely are you to use a tool like Swarveda for identifying Chandas?</label>
+				<div class="options">
+					<label><input type="radio" name="likelyUse" value="1" required>1 (Not likely at all)</label>
+					<label><input type="radio" name="likelyUse" value="2">2</label>
+					<label><input type="radio" name="likelyUse" value="3">3</label>
+					<label><input type="radio" name="likelyUse" value="4">4</label>
+					<label><input type="radio" name="likelyUse" value="5">5 (Very likely)</label>
+				</div>
+			</div>
+			<div class="question">
+				<label>10. Would you be willing to pay for premium features (e.g., advanced quizzes or unlimited access)?</label>
+				<div class="options">
+					<label><input type="radio" name="payPremium" value="Yes" required>Yes</label>
+					<label><input type="radio" name="payPremium" value="No">No</label>
+				</div>
+			</div>
+			<div class="question">
+				<label>11. On a scale of 1-10, how likely are you to recommend Swarveda to others?</label>
+				<div class="options">
+					<label><input type="radio" name="recommend" value="1" required>1 (Not likely at all)</label>
+					<label><input type="radio" name="recommend" value="2">2</label>
+					<label><input type="radio" name="recommend" value="3">3</label>
+					<label><input type="radio" name="recommend" value="4">4</label>
+					<label><input type="radio" name="recommend" value="5">5</label>
+					<label><input type="radio" name="recommend" value="6">6</label>
+					<label><input type="radio" name="recommend" value="7">7</label>
+					<label><input type="radio" name="recommend" value="8">8</label>
+					<label><input type="radio" name="recommend" value="9">9</label>
+					<label><input type="radio" name="recommend" value="10">10 (Extremely likely)</label>
+				</div>
+			</div>
+			<button type="submit" class="submit-btn">Submit Survey</button>
+		</form>
+		<div class="success-message" id="successMsg">
+			<strong>Survey submitted successfully!</strong>
+		</div>
+		<div class="thank-you" id="thankYouMsg">
+			Thank you for taking the time to complete our survey.<br>
+			Your feedback helps us improve Swarveda for everyone!
+		</div>
+	</div>
+	<script>
+		// Animate form questions on load
+		window.addEventListener('DOMContentLoaded', function() {
+			const questions = document.querySelectorAll('.question');
+			questions.forEach((q, i) => {
+				q.style.opacity = 0;
+				setTimeout(() => {
+					q.style.opacity = 1;
+					q.style.transform = 'translateY(0)';
+				}, 120 + i * 90);
+			});
+		});
+
+		// Animate submit and show success/thank you
+		document.getElementById('surveyForm').addEventListener('submit', function(e) {
+			e.preventDefault();
+			const form = document.getElementById('surveyForm');
+			form.style.transition = 'opacity 0.5s cubic-bezier(.23,1.01,.32,1)';
+			form.style.opacity = 0;
+			setTimeout(function() {
+				form.style.display = 'none';
+				document.getElementById('successMsg').style.display = 'block';
+				document.getElementById('successMsg').style.opacity = 0;
+				setTimeout(function() {
+					document.getElementById('successMsg').style.opacity = 1;
+				}, 50);
+				setTimeout(function() {
+					document.getElementById('successMsg').style.opacity = 0;
+					setTimeout(function() {
+						document.getElementById('successMsg').style.display = 'none';
+						document.getElementById('thankYouMsg').style.display = 'block';
+						document.getElementById('thankYouMsg').style.opacity = 0;
+						setTimeout(function() {
+							document.getElementById('thankYouMsg').style.opacity = 1;
+						}, 50);
+					}, 600);
+				}, 1500);
+			}, 500);
+		});
+	</script>
+</body>
+</html>
